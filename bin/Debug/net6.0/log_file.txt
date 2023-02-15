@@ -1,2 +1,3 @@
 2023-02-13 14:53:22.9285|ERROR|Program|You must enter a valid number
 2023-02-13 14:57:29.3850|ERROR|Program|You must enter a valid number
+2023-02-14 18:47:08.5735|WARN|Program|Movie already exists in database

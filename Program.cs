@@ -100,7 +100,10 @@ else if (resp == "2")
             }
             Console.WriteLine("Do you want to add another movie? (y/N)");
             string input = Console.ReadLine();
-            if(input[0] == 'N'){
+            if(input[0] == 'y'){
+                keepAdding = true;
+            }
+            else{
                 keepAdding = false;
             }
         }while(keepAdding);
