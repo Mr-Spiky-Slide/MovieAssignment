@@ -18,10 +18,10 @@ Console.WriteLine("Enter anything else to quit.");
 string resp = Console.ReadLine();
 if (resp == "1")
 {
-
     StreamReader sr = new StreamReader(file);
         while (!sr.EndOfStream)
         {
+
             Console.WriteLine();
             logger.Trace("Itterating over line");
             Console.WriteLine();
@@ -62,7 +62,7 @@ else if (resp == "2")
     if (File.Exists(file))
     {
         //stream READER
-        StreamWriter sw = new StreamWriter(file);
+        StreamWriter sw = new StreamWriter(file, append: true);
         StreamReader sr = new StreamReader(file);
         List<string> allMovies = new List<string>();
 
@@ -84,14 +84,43 @@ else if (resp == "2")
             newMovieTitle = Console.ReadLine();
 
             int? movieExist = allMovies.IndexOf(newMovieTitle);
-            if(movieExist >= 0){
+            if(movieExist < 0){
+
+                if(newMovieTitle.Contains(",")){
+                    newMovieTitle = newMovieTitle.Insert(0,"\"");
+                    newMovieTitle += "\"";
+                }
 
                 Console.WriteLine("Enter a genre: ");
                 newMovieGenres = Console.ReadLine();
+                bool anotherGenre;
+                Console.WriteLine("Do you want to add another genre? (y/N)");
+                string genreInput = Console.ReadLine();
+                if(genreInput[0] == 'y'){
+                    anotherGenre = true;
+                }
+                else{
+                    anotherGenre = false;
+                }
+                while(anotherGenre){
+                    Console.WriteLine("Enter a genre: ");
+                    newMovieGenres += "|"+Console.ReadLine();
+                    Console.WriteLine("Do you want to add another genre? (y/N)");
+                    genreInput = Console.ReadLine();
+                    if(genreInput[0] == 'y'){
+                        anotherGenre = true;
+                    }
+                    else{
+                        anotherGenre = false;
+                    }
+                }
+                
+                string lastLine = File.ReadLines(file).LastOrDefault();
+                string[] lastArray = lastLine.Split(",");
+                int lastId = Convert.ToInt32(lastArray[0]);
 
-
-                sw.WriteLine($"{allMovies.Count()},{newMovieTitle},{newMovieGenres}");
-
+                sw.WriteLine($"{allMovies.Count()+1},{newMovieTitle},{newMovieGenres}");
+                //Console.WriteLine($"{lastId+1},{newMovieTitle},{newMovieGenres}");
 
             }
             else{
