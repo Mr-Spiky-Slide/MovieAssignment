@@ -136,11 +136,18 @@ else if (resp == "2")
                 keepAdding = false;
             }
         }while(keepAdding);
+
+        try{
+
+        }
+        catch (Exception ex){
+            logger.Error(ex.Message);
+        }
         
 
     }
     else{
-        //file does not exist
+        Console.WriteLine("file does not exist");
     }
 
 
